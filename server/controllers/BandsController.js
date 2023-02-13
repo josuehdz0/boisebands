@@ -8,7 +8,7 @@ export class BandsController extends BaseController{
 
     this.router
       .get('', this.getBands)
-      .get('', this.getBandbyId)
+      .get('/:bandId', this.getBandById)
   }
 
   getBands(req, res, next){
@@ -19,11 +19,12 @@ export class BandsController extends BaseController{
       next(error)
     }
   }
-  getBandbyId(res,req,next){
+  getBandById(req,res,next){
     try {
       let bandId = req.params.bandId
       logger.log(bandId)
-      const band = 
+      const band = bandsService.getBandById(bandId)
+      res.send(band)
     } catch (error) {
       next(error)
     }
