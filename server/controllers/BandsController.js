@@ -9,6 +9,7 @@ export class BandsController extends BaseController{
     this.router
       .get('', this.getBands)
       .get('/:bandId', this.getBandById)
+      .post('', this.createBand)
   }
 
   getBands(req, res, next){
@@ -29,6 +30,18 @@ export class BandsController extends BaseController{
       next(error)
     }
   }
+
+  createBand(req,res,next){
+    try {
+      let rawBandData = req.body
+      let newBand = bandsService.createBand(rawBandData)
+      res.send(newBand)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+
 
 
 }
