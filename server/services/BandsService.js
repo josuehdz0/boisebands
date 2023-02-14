@@ -3,6 +3,16 @@ import { fakeDb } from "../db/FakeDb.js"
 import { BadRequest } from "../utils/Errors.js"
 
 class BandsService{
+  removeBandById(bandId) {
+    let removedBand = fakeDb.bands.findIndex(b => b.id == bandId)
+
+    if (removedBand == -1){
+      throw new BadRequest('Bad Band Id')
+    }
+    const removed = fakeDb.bands.splice(removedBand,1)
+    return removed[0]
+  }
+  
   editBandById(bandId, bandData) {
     let foundBand = fakeDb.bands.find(b => b.id == bandId)
 

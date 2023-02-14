@@ -11,6 +11,7 @@ export class BandsController extends BaseController{
       .get('/:bandId', this.getBandById)
       .post('', this.createBand)
       .put('/:bandId',this.editBandById)
+      .delete('/:bandId', this.removeBandById)
   }
 
   getBands(req, res, next){
@@ -49,6 +50,16 @@ export class BandsController extends BaseController{
 
       let updatedBand = bandsService.editBandById(bandId, bandData)
       res.send(updatedBand)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  removeBandById(req,res,next){
+    try {
+      let bandId = req.params.bandId
+      let removedBand = bandsService.removeBandById(bandId)
+      res.send(removedBand)
     } catch (error) {
       next(error)
     }
